@@ -39,8 +39,10 @@ provider:
 
 functions:
   hello-env-john:
+    # function output will be 'John'
     handler: handler.hello
   hello-env-marc:
+    # function output will be 'Marc'
     handler: handler.hello
     environment:
       FIRST_NAME: "Marc"

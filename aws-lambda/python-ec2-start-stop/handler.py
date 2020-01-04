@@ -1,4 +1,5 @@
 import boto3
+# boto3 = aws-sdk for node.js
 
 ec2 = boto3.client('ec2')
 
