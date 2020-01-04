@@ -23,7 +23,9 @@ module.exports.list = (event, context, callback) => {
 
     // create a response
     const response = {
+      // statusCode is required
       statusCode: 200,
+      // body is required and JSON must be returned from lambdas behind an api gateway
       body: JSON.stringify(result.Items),
     };
     callback(null, response);
