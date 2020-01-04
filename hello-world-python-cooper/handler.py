@@ -19,6 +19,9 @@
 # destroy all functions with:
 # serverless remove
 
+import time
+
 def hello(event, context):
+    time.sleep(4)
     print('third update for cooper. ')
     return "hello-world-cooper"

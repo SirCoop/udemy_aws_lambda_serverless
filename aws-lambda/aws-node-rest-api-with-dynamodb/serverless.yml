@@ -6,6 +6,11 @@ provider:
   name: aws
   runtime: nodejs6.10
   environment:
+    # DYNAMODB_TABLE will store state of rest api
+    # self = DYNAMODB_TABLE variable
+    # service = service variable from line 1
+    # opt = an option passed to serverless deploy (stage option)
+    # provider.stage = stage option within this provider config
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
@@ -20,11 +25,16 @@ provider:
 
 functions:
   create:
+    # create.create = create file => create function exported within
     handler: todos/create.create
     events:
+      # references the api gateway
+      # if you do a POST to path /todos, call create.create
       - http:
           path: todos
           method: post
+          # usually cors = false
+          # allows api to be requested from any domain
           cors: true
 
   list:
@@ -60,6 +70,7 @@ functions:
           cors: true
 
 resources:
+  # cloud formation template creates resources that functions need
   Resources:
     TodosDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
@@ -74,6 +85,8 @@ resources:
             AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
+          # 1 read per second
           ReadCapacityUnits: 1
+          # 1 write per second
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}

@@ -11,7 +11,8 @@
 #
 # Happy Coding!
 
-service: python-example-iam
+# service: python-example-iam
+service: hello-world-python-cooper
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -19,10 +20,18 @@ service: python-example-iam
 
 provider:
   name: aws
-  runtime: python2.7
+  runtime: python3.8
   profile: serverless-admin
-  region: us-east-1
+  region: us-west-1
+
 # you can add statements to the Lambda function's IAM Role here
+##################
+# Basically, this following lines say:
+# allow this user to perform any action in the
+# lambda namespace for any resource
+##################
+# Verify these roles in aws with:
+# Services -> IAM -> Roles -> click on role -> view the policy
   iamRoleStatements:
     - Effect: "Allow"
       Action:
